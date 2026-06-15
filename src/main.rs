@@ -2,6 +2,6 @@ use leptos::prelude::*;
 
 fn main() {
     leptos::mount::mount_to_body(|| view! {
-        <p>"Hello, world, from Rust!"</p>
+        <p>"Hello, Zahra!"</p>
     })
 }
