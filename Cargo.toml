@@ -4,4 +4,11 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+console_error_panic_hook = "0.1.7"
+console_log = "1.0.0"
+icondata = "0.7.0"
 leptos = { version = "0.8.19", features = ["csr"] }
+leptos_icons = "0.7.1"
+leptos_meta = "0.8.6"
+leptos_router = "0.8.13"
+log = "0.4.32"

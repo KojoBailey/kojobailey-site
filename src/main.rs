@@ -1,7 +1,12 @@
 use leptos::prelude::*;
+use kojobailey_site::App;
 
 fn main() {
-    leptos::mount::mount_to_body(|| view! {
-        <p>"Hello, Zahra!"</p>
+    console_error_panic_hook::set_once();
+
+    mount_to_body(|| {
+        view! {
+            <App />
+        }
     })
 }

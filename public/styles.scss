@@ -1,0 +1,153 @@
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMonoNerdFont-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMonoNerdFont-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+$base-color: #ffaac4;
+$monospace-font: 'JetBrains Mono';
+
+body {
+  background-color: #1a1821;
+  color: white;
+  font-family: $monospace-font;
+  font-size: 20px;
+  text-align: center;
+
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 2px;
+    border: 3px solid $base-color;
+    pointer-events: none;
+    z-index: 9999;
+  }
+}
+
+.container {
+  height: 100dvh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+
+  .profile-image {
+    margin: 0 auto;
+    border: 5px solid white;
+    outline: 0px solid $base-color;
+    border-radius: 200px;
+    filter: drop-shadow(0 0 8mm rgba(white, 0.4));
+    transition:
+      outline 0.3s ease-out,
+      filter 0.3s ease-out,
+      border-radius 0.2s;
+    width: fit-content;
+    height: fit-content;
+    overflow: hidden;
+
+    &:hover {
+      outline: 8px solid $base-color;
+      border-radius: 10px;
+      filter: drop-shadow(0 0 8mm rgba($base-color, 0.6));
+      cursor: pointer;
+    }
+
+    img {
+      display: block;
+      width: 400px;
+      transform: scale(1.0);
+      transition:
+        width 0.2s ease-out,
+        transform 0.3s ease-out;
+
+      &:hover {
+        width: 430px;
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .name-section {
+    text-align: center;
+    font-family: $monospace-font;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    .name {
+      font-weight: bold;
+      color: white;
+      font-size: 60px;
+      filter: drop-shadow(0 0 8mm rgba(white, 0.4));
+      transition: 0.2s ease-in;
+
+      &:hover {
+        color: $base-color;
+        filter: drop-shadow(0 0 8mm rgba($base-color, 0.6));
+        cursor: pointer;
+      }
+    }
+
+    .name-surround {
+      flex: 1;
+      color: #ffffff40;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: 0.5s ease;
+    }
+    .left {
+      position: relative;
+      top: 30px;
+      text-align: right;
+      align-self: start;
+      transform: rotate(-2deg) translateY(20px);
+    }
+    .right {
+      position: relative;
+      bottom: -10px;
+      text-align: left;
+      align-self: end;
+      transform: rotate(2deg) translateY(-20px);
+    }
+
+    &:hover .left {
+      transform: rotate(-5deg) translateY(0);
+      opacity: 1;
+    }
+    &:hover .right {
+      transform: rotate(5deg) translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .links {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    font-size: 40px;
+    justify-content: center;
+
+    .link {
+      filter: drop-shadow(10px 10px 2px rgba(black, 0.8));
+      transform: translate(0, 0);
+      color: white;
+      transition: 0.2s ease;
+
+      &:hover {
+        filter: drop-shadow(5px 5px 1px rgba(black, 0.8));
+        transform: translate(5px, 5px);
+        color: $base-color;
+        cursor: pointer;
+      }
+    }
+  }
+}
