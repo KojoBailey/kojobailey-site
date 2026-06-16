@@ -46,6 +46,61 @@ pub fn Home() -> impl IntoView {
             }
         }>
             <div class="container">
+                <pre class="background-text">
+                "#include <xfbin/detail/xfbin_reader.hpp>
+
+using namespace kojo;
+using namespace kojo::nucc;
+using namespace kojo::type_abbreviations;
+
+auto Xfbin::from(const std::filesystem::path& path, const std::array<u8, 8> crypt_key)
+	-> std::expected<Xfbin, XfbinError>
+{
+        auto maybe_data = Binary::from(path);
+        if (!maybe_data) {
+		return std::unexpected{
+			XfbinError::from(maybe_data.error().variant)
+		};
+        }
+	return XfbinReader{*maybe_data, crypt_key}.parse();
+}
+
+auto Xfbin::from(std::span<const std::byte> span, const std::array<u8, 8> crypt_key)
+	-> std::expected<Xfbin, XfbinError>
+{
+	return XfbinReader{span, crypt_key}.parse();
+}
+
+auto Xfbin::from(const std::byte* ptr, const std::array<u8, 8> crypt_key)
+	-> std::expected<Xfbin, XfbinError>
+{
+	return XfbinReader{ptr, crypt_key}.parse();
+}
+
+auto Xfbin::fetch_type_from_map_index(std::uint32_t map_index) const noexcept
+	-> std::expected<ChunkType, XfbinError>
+{
+	if (map_index >= map_indices.size()) {
+		return std::unexpected{
+			XfbinError::MapIndexOutOfBounds{map_index, map_indices.size()}
+		};
+	}
+
+	const std::uint32_t true_map_index = map_indices[map_index];
+		
+	if (true_map_index >= maps.size()) {
+		return std::unexpected{
+			XfbinError::MapIndexOutOfBounds{true_map_index, maps.size()}
+		};
+	}
+		
+	const ChunkMap& chunk_map = maps[true_map_index];
+	return types[chunk_map.type_index];
+}"
+                </pre>
+                <div class="background-earth">
+                    <img src="https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e002131/GSFC_20171208_Archive_e002131~large.jpg" />
+                </div>
                 <div class="profile-image"
                     on:click=move |_| set_image_index.update(|n| *n = (*n + 1) % IMAGES.len())
                 >

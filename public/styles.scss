@@ -34,11 +34,40 @@ body {
 
 .container {
   height: 100dvh;
+  position: relative;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 0px;
+  overflow: hidden;
+
+  .background-text {
+    position: absolute;
+    font-size: 15px;
+    text-align: left;
+    color: rgba(#a0a0a0, 0.1);
+    filter: blur(1px);
+    top: 10px;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .background-earth {
+    mix-blend-mode: lighten;
+    position: absolute;
+    opacity: 0.1;
+    height: 100%;
+    width: 100%;
+    filter: blur(2px);
+
+    img {
+      position: absolute;
+      height: 150vh;
+      right: -800px;
+      top: -100px;
+    }
+  }
 
   .profile-image {
     margin: 20px auto;
@@ -64,14 +93,14 @@ body {
     img {
       display: block;
       width: 400px;
-      transform: scale(1.0);
+      transform: scale(1.1);
       transition:
         width 0.2s ease-out,
         transform 0.3s ease-out;
 
       &:hover {
-        width: 430px;
-        transform: scale(1.1);
+        width: 420px;
+        transform: scale(1.0);
       }
     }
   }
