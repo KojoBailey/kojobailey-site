@@ -58,6 +58,7 @@ pub fn Home() -> impl IntoView {
                     >"Kojo Bailey"</span>
                     <span class="name-surround right">{move || NAME_CODE[code_index.get()].1}</span>
                 </div>
+                <div class="subtitle">"/* Systems Programmer */"</div>
                 <div class="links">
                     <LinkButton href="https://github.com/KojoBailey" icon=icondata::BsGithub />
                     <LinkButton href="https://www.linkedin.com/in/kojo-bailey/" icon=icondata::BsLinkedin />
