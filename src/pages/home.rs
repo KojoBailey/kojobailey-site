@@ -1,6 +1,7 @@
 use leptos::prelude::*;
 use leptos_icons::Icon;
 use icondata;
+use std::time::Duration;
 
 const IMAGES: [&str; 3] = [
     "https://avatars.githubusercontent.com/u/50509420",
@@ -27,6 +28,16 @@ const NAME_CODE: [(&str, &str); 12] = [
 pub fn Home() -> impl IntoView {
     let (image_index, set_image_index) = signal(0);
     let (code_index, set_code_index) = signal(0);
+
+    let prev_image_index = move || {
+        (image_index.get() + IMAGES.len() - 1) % IMAGES.len()
+    };
+
+    let (transitioning, set_transitioning) = signal(false);
+
+    let advance_image = move |_| {
+        set_image_index.update(|n| *n += 1)
+    };
 
     view! {
         <ErrorBoundary fallback=|errors| {
@@ -101,10 +112,14 @@ auto Xfbin::fetch_type_from_map_index(std::uint32_t map_index) const noexcept
                 <div class="background-earth">
                     <img src="https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e002131/GSFC_20171208_Archive_e002131~large.jpg" />
                 </div>
-                <div class="profile-image"
-                    on:click=move |_| set_image_index.update(|n| *n = (*n + 1) % IMAGES.len())
-                >
-                    <img src=move || IMAGES[image_index.get()] />
+                <div class="profile-image fade-images"
+                    on:click=advance_image>
+                    <img src=move || if image_index.get() % 2 == 1 { IMAGES[prev_image_index()] } else { IMAGES[image_index.get() % IMAGES.len()] }
+                        class="fade-img"
+                        class:active=move || image_index.get() % 2 == 0 />
+                    <img src=move || if image_index.get() % 2 == 0 { IMAGES[prev_image_index()] } else { IMAGES[image_index.get() % IMAGES.len()] }
+                        class="fade-img"
+                        class:active=move || image_index.get() % 2 == 1 />
                 </div>
                 <div class="name-section">
                     <span class="name-surround left">{move || NAME_CODE[code_index.get()].0}</span>
@@ -113,7 +128,11 @@ auto Xfbin::fetch_type_from_map_index(std::uint32_t map_index) const noexcept
                     >"Kojo Bailey"</span>
                     <span class="name-surround right">{move || NAME_CODE[code_index.get()].1}</span>
                 </div>
-                <div class="subtitle">"/* Systems Programmer */"</div>
+                <div class="subtitle hover-swap">
+                    <HoverSwap content=("(*", "/*") />
+                    " Systems Programmer "
+                    <HoverSwap content=("*)", "*/") />
+                </div>
                 <div class="links">
                     <LinkButton href="https://github.com/KojoBailey" icon=icondata::BsGithub />
                     <LinkButton href="https://www.linkedin.com/in/kojo-bailey/" icon=icondata::BsLinkedin />
@@ -121,6 +140,8 @@ auto Xfbin::fetch_type_from_map_index(std::uint32_t map_index) const noexcept
                     <LinkButton href="https://www.instagram.com/kojobailey/" icon=icondata::BsInstagram />
                     <LinkButton href="https://www.reddit.com/user/Spyromaniac666/" icon=icondata::BsReddit />
                 </div>
+            </div>
+            <div class="container" style="background-color: red">
             </div>
         </ErrorBoundary>
     }
@@ -130,5 +151,17 @@ auto Xfbin::fetch_type_from_map_index(std::uint32_t map_index) const noexcept
 pub fn LinkButton(href: &'static str, icon: icondata::Icon) -> impl IntoView {
     view! {
         <a class="link" href=href target="_blank"><Icon icon={icon} /></a>
+    }
+}
+
+#[component]
+pub fn HoverSwap(
+    content: (&'static str, &'static str),
+) -> impl IntoView {
+    view! {
+        <span class="hover-swap">
+            <span class="show-by-default">{content.0}</span>
+            <span class="show-on-hover">{content.1}</span>
+        </span>
     }
 }

@@ -43,36 +43,43 @@ body {
   overflow: hidden;
 
   .background-text {
-    position: absolute;
+    position: fixed;
     font-size: 15px;
     text-align: left;
     color: rgba(#a0a0a0, 0.1);
     filter: blur(1px);
-    top: 10px;
     height: 100%;
     overflow: hidden;
+    pointer-events: none;
   }
 
   .background-earth {
     mix-blend-mode: lighten;
-    position: absolute;
+    position: fixed;
     opacity: 0.1;
     height: 100%;
     width: 100%;
     filter: blur(2px);
+    pointer-events: none;
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
 
     img {
       position: absolute;
       height: 150vh;
       right: -800px;
       top: -100px;
+      animation: spin 120s linear infinite;
     }
   }
 
   .profile-image {
     margin: 20px auto;
-    border: 5px solid white;
-    outline: 0px solid $base-color;
+    outline: 5px solid white;
+    outline-offset: 5px;
     border-radius: 200px;
     filter: drop-shadow(0 0 8mm rgba(white, 0.4));
     transition:
@@ -85,21 +92,22 @@ body {
 
     &:hover {
       outline: 8px solid $base-color;
-      border-radius: 10px;
+      border-radius: 0;
       filter: drop-shadow(0 0 8mm rgba($base-color, 0.6));
       cursor: pointer;
     }
 
     img {
       display: block;
-      width: 400px;
+      width: 350px;
       transform: scale(1.1);
       transition:
         width 0.2s ease-out,
-        transform 0.3s ease-out;
+        transform 0.2s ease-out,
+        opacity 0.5s ease-in;
 
       &:hover {
-        width: 420px;
+        width: 400px;
         transform: scale(1.0);
       }
     }
@@ -182,6 +190,40 @@ body {
         color: $base-color;
         cursor: pointer;
       }
+    }
+  }
+}
+
+.hover-swap {
+  position: relative;
+  isolation: isolate;
+
+  .show-by-default {
+    opacity: 1;
+    transition: 0.3s ease-in-out;
+  }
+  .show-on-hover {
+    opacity: 0;
+    transition: 0.3s ease-in-out;
+    position: absolute;
+    inset: 0;
+    mix-blend-mode: plus-lighter;
+  }
+
+  &:hover .show-by-default {
+    opacity: 0;
+  }
+  &:hover .show-on-hover {
+    opacity: 1;
+  }
+}
+
+.fade-images {
+  .fade-img {
+    opacity: 0;
+
+    &.active {
+      opacity: 1;
     }
   }
 }
