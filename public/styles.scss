@@ -1,5 +1,11 @@
 @forward 'syntax-highlight';
 
+@forward 'footer';
+@forward 'header';
+
+// @forward 'section-1';
+@forward 'section-2';
+
 @font-face {
   font-family: 'JetBrains Mono';
   src: url('/fonts/JetBrainsMonoNerdFont-Regular.ttf') format('truetype');
@@ -48,54 +54,8 @@ a {
   text-decoration: none;
 }
 
-.site-header {
-  position: fixed;
-  top: 0;
-  display: flex;
-  flex-direction: row;
-  background-color: rgba(black, 0.9);
-  height: 60px;
-  padding: 20px;
-  width: 100%;
-  font-size: 20px;
-  box-sizing: border-box;
-
-  .left {
-    margin-right: auto;
-  }
-  .right {
-    margin-left: auto;
-  }
-
-  .sitename {
-    text-decoration: underline;
-    text-underline-offset: 1px;
-    color: white;
-    opacity: 0.7;
-    transition: 0.2s ease-in;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-
-  .blog {
-  }
-}
-
-.site-footer {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  background-color: black;
-  width: 100%;
-  padding: 20px;
-  font-size: 15px;
-  z-index: 100;
-}
-
-.container {
-  height: 100dvh;
+.section-top {
+  height: 720px;
   position: relative;
 
   display: flex;
@@ -150,7 +110,7 @@ a {
   }
 
   .foreground {
-    position: absolute;
+    position: fixed;
     top: 0;
     pointer-events: none;
 
@@ -300,14 +260,15 @@ a {
     }
   }
 
-  .scroll-notice {
+  .scroll-notice a {
+    display: block;
     color: #716757;
     filter: drop-shadow(0 0 5px black);
     opacity: 0.5;
     transform: translateY(0);
     transition:
-     opacity 0.2s ease-in,
-     transform 2s cubic-bezier(0, 0.9, 0.3, 1);
+      opacity 0.2s ease-in,
+      transform 2s cubic-bezier(0, 0.9, 0.3, 1);
 
     &:hover {
       color: #dbaf6d;

@@ -112,7 +112,15 @@ pub fn Home() -> impl IntoView {
                 </ul>
             }
         }>
-            <div class="container">
+            <div class="site-header">
+                <div class="left">
+                    <div class="sitename"><a href="/">"KojoBailey.me"</a></div>
+                </div>
+                <div class="right">
+                    <div class="blog"><a href="https://kojobailey.me" target="_blank">blog</a></div>
+                </div>
+            </div>
+            <div class="section-top">
                 <pre class="background-text"><div inner_html=output_html.clone() /></pre>
                 <pre class="background-text clone"><div inner_html=output_html /></pre>
                 <div class="background-earth">
@@ -146,21 +154,44 @@ pub fn Home() -> impl IntoView {
                     <LinkButton href="https://www.youtube.com/@KojoBailey" icon=icondata::BsYoutube />
                     <LinkButton href="https://www.instagram.com/kojobailey/" icon=icondata::BsInstagram />
                     <LinkButton href="https://www.reddit.com/user/Spyromaniac666/" icon=icondata::BsReddit />
+                    <LinkButton href="https://x.com/KojoBailey" icon=icondata::BsTwitter />
                 </div>
                 <div class="foreground">
                     <img src="/images/result_rank_deco_0.png" />
                 </div>
                 <div class="scroll-notice">
-                    <a href="#footer">"↓ scroll down to learn more ↓"</a>
+                    <a href="#section-2">"↓ scroll down to learn more ↓"</a>
                 </div>
             </div>
-            <div class="container" style="background-color: red"></div>
-            <div class="site-header">
-                <div class="left">
-                    <div class="sitename"><a href="/">"KojoBailey.me"</a></div>
-                </div>
-                <div class="right">
-                    <div class="blog"><a href="https://kojobailey.me" target="_blank">blog</a></div>
+            <div id="section-2" class="section-middle">
+                <div class="quote">"Jack of all trades, master of none,"<br/>"but oftentimes better than a master of one."</div>
+                <div class="highlights">
+                    <div class="yt-video box">
+                        <div class="heading">"Latest Video"</div>
+                        <div class="languages">"Premiere Pro"</div>
+                        <iframe src="https://www.youtube.com/embed/AMGHyDnHImA?si=A4MGgS_xNnH89awn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <div class="desc">"Using my experience modding a decomp of this Unity game, I put together a video guide to help others struggling with modding it, as well as to hopefully attract newcomers."</div>
+                    </div>
+                    <div class="box">
+                        <div class="heading">"CLI Calculator"</div>
+                        <div class="languages">"OCaml | Haskell"</div>
+                        <div class="desc">"Lorem ipsum dolor amet. Lowk I just need some padding so this isn't incredibly skinny ahh."</div>
+                    </div>
+                    <div class="box">
+                        <div class="heading">"XFBIN++"</div>
+                        <div class="languages">"C++"</div>
+                        <div class="desc">"Lorem ipsum dolor amet. Lowk I just need some padding so this isn't incredibly skinny ahh."</div>
+                    </div>
+                    <div class="box">
+                        <div class="heading">"Snake"</div>
+                        <div class="languages">"Nim + Raylib"</div>
+                        <div class="desc">"Lorem ipsum dolor amet. Lowk I just need some padding so this isn't incredibly skinny ahh."</div>
+                    </div>
+                    <div class="box">
+                        <div class="heading">"rsLox"</div>
+                        <div class="languages">"Rust"</div>
+                        <div class="desc">"Lorem ipsum dolor amet. Lowk I just need some padding so this isn't incredibly skinny ahh."</div>
+                    </div>
                 </div>
             </div>
             <div id="footer" class="site-footer">
