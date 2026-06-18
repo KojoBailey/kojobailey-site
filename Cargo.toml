@@ -12,3 +12,4 @@ leptos_icons = "0.7.1"
 leptos_meta = "0.8.6"
 leptos_router = "0.8.13"
 log = "0.4.32"
+syntect = { version = "5.3.0", default-features = false, features = ["default-fancy"] }

@@ -1,7 +1,10 @@
 use leptos::prelude::*;
 use leptos_icons::Icon;
 use icondata;
-use std::time::Duration;
+
+use syntect::html::{ClassedHTMLGenerator, ClassStyle};
+use syntect::parsing::SyntaxSet;
+use syntect::util::LinesWithEndings;
 
 const IMAGES: [&str; 3] = [
     "https://avatars.githubusercontent.com/u/50509420",
@@ -24,41 +27,7 @@ const NAME_CODE: [(&str, &str); 12] = [
     ("std.debug.print(\"", "!\\n\");"),
 ];
 
-#[component]
-pub fn Home() -> impl IntoView {
-    let (image_index, set_image_index) = signal(0);
-    let (code_index, set_code_index) = signal(0);
-
-    let prev_image_index = move || {
-        (image_index.get() + IMAGES.len() - 1) % IMAGES.len()
-    };
-
-    let (transitioning, set_transitioning) = signal(false);
-
-    let advance_image = move |_| {
-        set_image_index.update(|n| *n += 1)
-    };
-
-    view! {
-        <ErrorBoundary fallback=|errors| {
-            view! {
-                <h1>"Uh oh! Something went wrong!"</h1>
-
-                <p>"Errors: "</p>
-                <ul>
-                    {move || {
-                        errors
-                            .get()
-                            .into_iter()
-                            .map(|(_, e)| view! { <li>{e.to_string()}</li> })
-                            .collect_view()
-                    }}
-                </ul>
-            }
-        }>
-            <div class="container">
-                <pre class="background-text">
-                "#include <xfbin/detail/xfbin_reader.hpp>
+const BACKGROUND_CODE: &str = "#include <xfbin/detail/xfbin_reader.hpp>
 
 using namespace kojo;
 using namespace kojo::nucc;
@@ -107,25 +76,60 @@ auto Xfbin::fetch_type_from_map_index(std::uint32_t map_index) const noexcept
 		
 	const ChunkMap& chunk_map = maps[true_map_index];
 	return types[chunk_map.type_index];
-}"
-                </pre>
+}";
+
+#[component]
+pub fn Home() -> impl IntoView {
+    let (image_index, set_image_index) = signal(0);
+    let (code_index, set_code_index) = signal(0);
+
+    let advance_image = move |_| {
+        set_image_index.update(|n| *n += 1)
+    };
+
+    let syntax_set = SyntaxSet::load_defaults_newlines();
+    let syntax = syntax_set.find_syntax_by_name("C++").unwrap();
+    let mut html_generator = ClassedHTMLGenerator::new_with_class_style(syntax, &syntax_set, ClassStyle::Spaced);
+    for line in LinesWithEndings::from(BACKGROUND_CODE) {
+        let _ = html_generator.parse_html_for_line_which_includes_newline(line);
+    }
+    let output_html = html_generator.finalize();
+
+    view! {
+        <ErrorBoundary fallback=|errors| {
+            view! {
+                <h1>"Uh oh! Something went wrong!"</h1>
+
+                <p>"Errors: "</p>
+                <ul>
+                    {move || {
+                        errors
+                            .get()
+                            .into_iter()
+                            .map(|(_, e)| view! { <li>{e.to_string()}</li> })
+                            .collect_view()
+                    }}
+                </ul>
+            }
+        }>
+            <div class="container">
+                <pre class="background-text"><div inner_html=output_html.clone() /></pre>
+                <pre class="background-text clone"><div inner_html=output_html /></pre>
                 <div class="background-earth">
                     <img src="https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e002131/GSFC_20171208_Archive_e002131~large.jpg" />
                 </div>
-                <div class="profile-image fade-images"
+                <div class="profile-image"
                     on:click=advance_image>
-                    <img src=move || if image_index.get() % 2 == 1 { IMAGES[prev_image_index()] } else { IMAGES[image_index.get() % IMAGES.len()] }
-                        class="fade-img"
-                        class:active=move || image_index.get() % 2 == 0 />
-                    <img src=move || if image_index.get() % 2 == 0 { IMAGES[prev_image_index()] } else { IMAGES[image_index.get() % IMAGES.len()] }
-                        class="fade-img"
-                        class:active=move || image_index.get() % 2 == 1 />
+                    <img src=move || IMAGES[image_index.get() % IMAGES.len()] class="fade-img" />
                 </div>
                 <div class="name-section">
                     <span class="name-surround left">{move || NAME_CODE[code_index.get()].0}</span>
-                    <span class="name"
-                        on:click=move |_| set_code_index.update(|n| *n = (*n + 1) % NAME_CODE.len())
-                    >"Kojo Bailey"</span>
+                    <span on:click=move |_| set_code_index.update(|n| *n = (*n + 1) % NAME_CODE.len()) >
+                        <svg class="name" viewBox="0 0 410 80" width="410" height="80"><text x="10" y="60" font-size="60" font-weight="bold"
+                            stroke-linejoin="round"
+                            paint-order="stroke fill"
+                        >"Kojo Bailey"</text></svg>
+                    </span>
                     <span class="name-surround right">{move || NAME_CODE[code_index.get()].1}</span>
                 </div>
                 <div class="subtitle hover-swap">
@@ -134,14 +138,23 @@ auto Xfbin::fetch_type_from_map_index(std::uint32_t map_index) const noexcept
                     <HoverSwap content=("*)", "*/") />
                 </div>
                 <div class="links">
+                    <div class="name-background">
+                        <img src="/images/result_rank_plate_dropping_0.png" />
+                    </div>
                     <LinkButton href="https://github.com/KojoBailey" icon=icondata::BsGithub />
                     <LinkButton href="https://www.linkedin.com/in/kojo-bailey/" icon=icondata::BsLinkedin />
                     <LinkButton href="https://www.youtube.com/@KojoBailey" icon=icondata::BsYoutube />
                     <LinkButton href="https://www.instagram.com/kojobailey/" icon=icondata::BsInstagram />
                     <LinkButton href="https://www.reddit.com/user/Spyromaniac666/" icon=icondata::BsReddit />
                 </div>
+                <div class="foreground">
+                    <img src="/images/result_rank_deco_0.png" />
+                </div>
             </div>
             <div class="container" style="background-color: red">
+            <div class="site-header">
+                <div class="sitename"><a href="https://kojobailey.me">"KojoBailey.me"</a></div>
+            </div>
             </div>
         </ErrorBoundary>
     }

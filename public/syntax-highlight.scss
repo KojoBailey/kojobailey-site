@@ -1,0 +1,35 @@
+.source {
+  .meta.preprocessor.include .keyword.control.import.include {
+    color: #635f91;
+    font-style: italic;
+  }
+
+  .keyword.control {
+    color: #fd5275;
+    font-style: italic;
+  }
+
+  .punctuation {
+    color: #efbac3;
+  }
+
+  .storage.type {
+    color: #8dffff;
+  }
+
+  .storage.modifier {
+    color: #c076ff;
+  }
+
+  .keyword.operator {
+    color: #ffd585;
+  }
+
+  .variable.parameter {
+    font-style: italic;
+  }
+
+  .string.quoted.other.lt-gt.include, .punctuation.definition.string {
+    color: #51ce51;
+  }
+}
