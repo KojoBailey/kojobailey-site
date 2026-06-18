@@ -17,6 +17,10 @@
 $base-color: #ffaac4;
 $monospace-font: 'JetBrains Mono';
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: #1a1821;
   color: white;

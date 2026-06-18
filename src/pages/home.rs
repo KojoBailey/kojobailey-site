@@ -151,19 +151,19 @@ pub fn Home() -> impl IntoView {
                     <img src="/images/result_rank_deco_0.png" />
                 </div>
                 <div class="scroll-notice">
-                    <a href="#">"↓ scroll down to learn more ↓"</a>
+                    <a href="#footer">"↓ scroll down to learn more ↓"</a>
                 </div>
             </div>
             <div class="container" style="background-color: red"></div>
             <div class="site-header">
                 <div class="left">
-                    <div class="sitename"><a href="https://kojobailey.me">"KojoBailey.me"</a></div>
+                    <div class="sitename"><a href="/">"KojoBailey.me"</a></div>
                 </div>
                 <div class="right">
                     <div class="blog"><a href="https://kojobailey.me" target="_blank">blog</a></div>
                 </div>
             </div>
-            <div class="site-footer">
+            <div id="footer" class="site-footer">
                 <div class="copyright">"© Kojo Bailey 2026"</div>
             </div>
         </ErrorBoundary>
