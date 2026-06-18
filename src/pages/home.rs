@@ -154,7 +154,7 @@ pub fn Home() -> impl IntoView {
                     <a href="#">"↓ scroll down to learn more ↓"</a>
                 </div>
             </div>
-            <div class="container" style="background-color: red">
+            <div class="container" style="background-color: red"></div>
             <div class="site-header">
                 <div class="left">
                     <div class="sitename"><a href="https://kojobailey.me">"KojoBailey.me"</a></div>
@@ -163,6 +163,8 @@ pub fn Home() -> impl IntoView {
                     <div class="blog"><a href="https://kojobailey.me" target="_blank">blog</a></div>
                 </div>
             </div>
+            <div class="site-footer">
+                <div class="copyright">"© Kojo Bailey 2026"</div>
             </div>
         </ErrorBoundary>
     }
