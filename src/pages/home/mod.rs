@@ -1,9 +1,11 @@
 mod hero;
 mod quote;
+mod about_me;
 mod programming_projects;
 
 use hero::SectionHero;
 use quote::SectionQuote;
+use about_me::SectionAboutMe;
 use programming_projects::SectionProgrammingProjects;
 
 use leptos::prelude::*;
@@ -37,6 +39,7 @@ pub fn HomePage() -> impl IntoView {
             </div>
             <SectionHero />
             <SectionQuote />
+            <SectionAboutMe />
             <SectionProgrammingProjects />
             <div id="footer" class="site-footer">
                 <div class="copyright">"© Kojo Bailey 2026"</div>
