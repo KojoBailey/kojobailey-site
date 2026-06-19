@@ -4,7 +4,7 @@ use leptos_router::{components::*, path};
 
 mod pages;
 
-use crate::pages::home::Home;
+use crate::pages::home::HomePage;
 
 #[component]
 pub fn App() -> impl IntoView {
@@ -24,7 +24,7 @@ pub fn App() -> impl IntoView {
         
         <Router>
             <Routes fallback=|| view! { NotFound }>
-                <Route path=path!("/") view=Home />
+                <Route path=path!("/") view=HomePage />
             </Routes>
         </Router>
     }
