@@ -1,0 +1,14 @@
+.top-quote {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: red;
+
+  .quote {
+    font-weight: bold;
+    margin: 20px;
+  }
+}

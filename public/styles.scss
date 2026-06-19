@@ -1,10 +1,16 @@
+@use 'globals' as *;
+
 @forward 'syntax-highlight';
 
 @forward 'footer';
 @forward 'header';
 
-// @forward 'section-1';
-@forward 'section-2';
+@forward 'top-quote';
+@forward 'programming-projects';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
 @font-face {
   font-family: 'JetBrains Mono';
@@ -19,9 +25,6 @@
   font-weight: 700;
   font-style: normal;
 }
-
-$base-color: #ffaac4;
-$monospace-font: 'JetBrains Mono';
 
 html {
   scroll-behavior: smooth;

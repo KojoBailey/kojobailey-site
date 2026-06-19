@@ -1,0 +1,123 @@
+@use 'globals' as *;
+
+.top-quote {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: red;
+
+  .quote {
+    font-weight: bold;
+    margin: 20px;
+  }
+}
+
+.programming-projects {
+  position: relative;
+  width: 100%;
+  background-color: black;
+  border-radius: 5px;
+  padding: 20px;
+
+  .title {
+    font-size: 40px;
+    font-weight: bold;
+    padding-bottom: 20px;
+  }
+
+  .boxes {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-auto-rows: min-content;
+    gap: 20px;
+    height: 1000px;
+    padding: 20px;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+
+    .box {
+      position: relative;
+      background-color: #111111;
+      border-radius: 5px;
+      color: white;
+      overflow: hidden;
+      outline: 0 solid transparent;
+      transform: scale(1);
+      transition: 0.2s ease-out;
+
+      &:hover {
+        outline: 4px solid $base-color;
+        transform: scale(1.05);
+        z-index: 999;
+        cursor: pointer;
+      }
+
+      .top {
+        display: flex;
+        flex-direction: row;
+        align-items: start;
+        gap: 15px;
+        padding: 5px 10px;
+
+        .icon {
+          margin: auto 0;
+          filter: drop-shadow(0 0 2px white);
+
+          img {
+            height: 50px;
+            max-width: 50px;
+            object-fit: contain;
+            display: block;
+          }
+        }
+
+        .text {
+          display: flex;
+          flex-direction: column;
+          text-align: left;
+
+          .heading {
+            font-weight: bold;
+            font-size: 28px;
+          }
+
+          .languages {
+            font-size: 15px;
+            color: grey;
+          }
+        }
+      }
+
+      .desc {
+        position: absolute;
+        bottom: 0;
+        padding: 15px 20px;
+        text-align: left;
+        font-size: 14px;
+        background-color: rgba(black, 0.9);
+        color: white;
+        opacity: 0;
+        transform: translateY(200px);
+        transition: 0.2s ease-out;
+      }
+
+      &:hover .desc {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .thumbnail {
+      height: fit-content;
+
+      img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16/9;
+      }
+    }
+  }
+}
